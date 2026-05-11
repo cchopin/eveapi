@@ -130,19 +130,69 @@ class RefreshToken extends ExtensibleModel implements EsiToken
     }
 
     /**
-     * Only return a token value if it is not already
+     * Decrypt and return the access token value only if it is not already
      * considered expired.
      *
-     * @param  $value
-     * @return mixed
+     * @param  ?string  $value
+     * @return ?string
      */
-    public function getTokenAttribute($value)
+    public function getTokenAttribute(?string $value): ?string
     {
+        if (is_null($value))
+            return null;
+
+        try {
+            $decrypted = decrypt($value);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            // backward compat: value is not encrypted yet, use as-is
+            $decrypted = $value;
+        }
 
         if ($this->expires_on->gt(Carbon::now()))
-            return $value;
+            return $decrypted;
 
         return null;
+    }
+
+    /**
+     * Encrypt the access token before storing it.
+     *
+     * @param  ?string  $value
+     * @return void
+     */
+    public function setTokenAttribute(?string $value): void
+    {
+        $this->attributes['token'] = $value ? encrypt($value) : null;
+    }
+
+    /**
+     * Decrypt and return the refresh token value.
+     *
+     * @param  ?string  $value
+     * @return ?string
+     */
+    public function getRefreshTokenAttribute(?string $value): ?string
+    {
+        if (is_null($value))
+            return null;
+
+        try {
+            return decrypt($value);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            // backward compat: value is not encrypted yet, return as-is
+            return $value;
+        }
+    }
+
+    /**
+     * Encrypt the refresh token before storing it.
+     *
+     * @param  ?string  $value
+     * @return void
+     */
+    public function setRefreshTokenAttribute(?string $value): void
+    {
+        $this->attributes['refresh_token'] = $value ? encrypt($value) : null;
     }
 
     /**
