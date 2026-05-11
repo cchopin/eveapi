@@ -57,7 +57,7 @@ class CorporationWalletJournal extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @var string

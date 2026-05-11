@@ -67,7 +67,7 @@ class CorporationOrder extends ExtensibleModel implements HasTypeID
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @param  $value

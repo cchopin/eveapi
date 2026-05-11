@@ -44,7 +44,7 @@ class ContractBid extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @var bool

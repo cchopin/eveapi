@@ -34,7 +34,7 @@ class CharacterPlanetRoute extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @var array

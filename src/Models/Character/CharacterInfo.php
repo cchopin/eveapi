@@ -73,7 +73,7 @@ class CharacterInfo extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @var string

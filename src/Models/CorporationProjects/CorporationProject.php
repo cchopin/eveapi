@@ -36,7 +36,7 @@ class CorporationProject extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     protected $primaryKey = 'id';
     public $incrementing = false;

@@ -36,7 +36,7 @@ class CharacterFittingItem extends ExtensibleModel implements HasTypeID
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     public function type()
     {

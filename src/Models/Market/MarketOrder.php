@@ -40,7 +40,7 @@ class MarketOrder extends ExtensibleModel implements HasTypeID
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     /**
      * @var bool

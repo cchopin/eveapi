@@ -59,7 +59,7 @@ class KillmailAttacker extends ExtensibleModel
     /**
      * @var bool
      */
-    protected static $unguarded = true;
+    protected $guarded = ['id'];
 
     protected static function boot()
     {
